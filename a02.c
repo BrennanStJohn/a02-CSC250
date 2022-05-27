@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define SIZE 751
 
-int getUserChoice(); //print menu and get user choice and remain within the bounds of menu
-int getShift(); //acquire numerical value in which to shift
-void getString(char buf[]); //acquire string value to decrypt or encrypt
+int getUserChoice(); //this function is intended to print the menu and get the user's menu option choice. be sure your program appropriately handles invalid selections
+int getShift(); //this function should acquire the numberical "key" value by which the characters will be shifted
+void getString(char buf[]); //should acquire the message the user would like to encrypt or decrypt
 void encrypt(char buf[], int shift);
 void decrypt(char buf[], int shift);
 
@@ -13,97 +12,26 @@ void decrypt(char buf[], int shift);
 
 
 int main() {
-
-	char string[] = "";
-	int shift = 2;
-	int input = 0;
-	char newString;
-	char garb;
 	
-		puts("-------------------------");
-		puts("| 1: Change Shift       |");
-		puts("| 2: Decrypt a message  |");
-		puts("| 3: Encrypt a message  |");
-		puts("| 4: Quit               |");
-		puts("-------------------------");
-		puts("");
-			
-		printf("%s", "What would you like to do? ");
-		puts("");
-		
+	getUserChoice();
 		
 	
-	do {
-	
-	shift = getShift(shift);
-	
-	scanf("%d", &input);
-	
-	scanf("%c", &garb);
-	
-	if (input == 1) {
-		
-		puts("");
-		
-		printf("%s", "Enter a new shift value: ");
-		
-		scanf("%d", &shift);
-		
-		getShift(shift);
-		
-		getUserChoice(input);
-		
-	}
-	if (input == 2) {
-		
-		puts("");
-		
-		printf("%s", "Input: ");
-		
-		fgets(string, 751, stdin);
-		
-		getString(string);
-		
-		decrypt(string, shift);
-		
-		getUserChoice(input);
-	}
-	if (input == 3) {
-		
-		printf("%s", "Input: ");
-		
-		fgets(string, 751, stdin);
-		
-		getString(string);
-		
-		encrypt(string, shift);
-		
-		getUserChoice(input);
-	}
-	if (input == 4) {
-		puts("Exiting...");
-		puts("");
-			break;
-		}
-	if (input > 4 || input < 1){
-		
-		puts("");
-		
-		puts("Please enter a valid number!");
-		
-		getUserChoice(input);
-	}
-	}
-
-	while ( input >= 1 || input <4); 
-		
-	
-	
-
 }
+
+	
+		
+	
+	
+
+
 
 int getUserChoice() {
 		
+	char string[] = "";
+	int shifter = 2;
+	int input = 0;
+	char newString[] = "";
+	char garb;
 			
 		
 			puts("-------------------------");
@@ -115,7 +43,57 @@ int getUserChoice() {
 			puts("");
 			
 			printf("%s", "What would you like to do? ");
-			puts("");
+			
+	while ( input >= 1 || input <4){
+	
+	scanf("%d", &input);
+	
+	scanf("%c", &garb);
+	
+	if (input == 1) {
+		
+		puts("");
+		
+		getShift(shifter);
+		
+		getUserChoice(input);
+		
+	}
+	if (input == 2) {
+		
+		puts("");
+		
+		getString(string);
+
+		decrypt(string, shifter);
+		
+		getUserChoice(input);
+	}
+	if (input == 3) {
+		
+		puts("");
+		
+		getString(string);
+		
+		encrypt(string, shifter);
+		
+		getUserChoice(input);
+	}
+	if (input == 4) {
+		
+		puts("");
+		puts("Exiting...");
+		break;
+		}
+	if (input > 4 || input < 1){
+		
+		puts("");
+		
+		puts("Please enter a valid number!");
+		
+		getUserChoice(input);
+	}
+	}
 			
 			
 }
@@ -125,15 +103,25 @@ int getUserChoice() {
 
 int getShift(){
 	
-	int x;
+	int shift;
 	
-	return x;
+	printf("%s", "Enter a new shift value: ");
+		
+	scanf("%d", &shift);
+	
+	puts("");
+	
+	return shift;
 	
 }
 
 void getString(char buf[]){
 	
 	int i = 0;
+	
+	printf("%s", "Input: ");
+	
+	fgets(buf, 751, stdin);
 	
 	while (buf[i] != '\0') {
 		if(buf[i] == '\n') {
@@ -142,39 +130,58 @@ void getString(char buf[]){
 		i++;
 	
 	}
-	
+		
 }
 
 void encrypt(char buf[], int shift){
 	
 	int i;
-	int x;
-	char buf1[] = {0};
+	int len = strlen(buf);
+	char mod;
 	
-	getString(buf);
-	
-	for(x = 0; strlen(buf) > x; x++){
-		if (buf[i] != '\0' && buf[i] != '\n'){
-			buf[x] = buf[i-shift];
-		}
-	}
-	printf("Output: %s", buf);
 	puts("");
+	printf("%s", "Output: ");
+	
+	for (i = 0; buf[i] != '\0'; i++) {
+		
+		mod = buf[i];
+		
+		if (mod != ' '){
+		mod = mod - shift;
+		}
+		buf[i] = mod;	
+	}
+	
+	printf("'%s'", buf);
+	puts("");
+	puts("");
+	
 	
 }
 
 void decrypt(char buf[], int shift){
 	
 	int i;
-	int x;
-	char buf1[] = {0};
+	int len = strlen(buf);
+	char mod;
 	
-	for(x = 0; strlen(buf) > x; x++){
-		if (buf[i] != '\0' && buf[i] != '\n'){
-			buf[x] = buf[i+shift];
-		}
-	}
-	printf("Output: %s", buf);
+	
 	puts("");
-}
+	printf("%s", "Output: ");
+	
+	for (i = 0; buf[i] != '\0'; i++) {
+		
+		mod = buf[i];
+		
+		if (mod != ' '){
+		mod = mod + shift;
+		}
+		buf[i] = mod;
+	}
+	
+	printf("'%s'", buf);
+	puts("");
+	puts("");
+	
 
+}
