@@ -13,14 +13,34 @@ void decrypt(char buf[], int shift);
 
 int main() {
 	
+	getUserChoice();
+
+}
+
+	
+		
+	
+	
+
+
+
+int getUserChoice() {
+			
+		
+	puts("-------------------------");
+	puts("| 1: Change Shift       |");
+	puts("| 2: Decrypt a message  |");
+	puts("| 3: Encrypt a message  |");
+	puts("| 4: Quit               |");
+	puts("-------------------------");
+	puts("");
+	
+	printf("%s", "What would you like to do? ");
+	
 	char string[] = "";
 	int shifter = 2;
 	int input = 0;
-	char newString[] = "";
 	char garb;
-	
-	getUserChoice();
-	
 	
 	
 	while ( input >= 1 || input <4){
@@ -31,9 +51,7 @@ int main() {
 	
 	if (input == 1) {
 		
-		puts("");
-		
-		printf("%s", "Enter a new shift value: ");
+		getShift();
 		
 		scanf("%d", &shifter);
 	
@@ -74,34 +92,13 @@ int main() {
 		
 		puts("Please enter a valid number!");
 		
+		puts("");
+		
 		getUserChoice(input);
 	}
+	
 	}
 	
-}
-
-	
-		
-	
-	
-
-
-
-int getUserChoice() {
-			
-		
-			puts("-------------------------");
-			puts("| 1: Change Shift       |");
-			puts("| 2: Decrypt a message  |");
-			puts("| 3: Encrypt a message  |");
-			puts("| 4: Quit               |");
-			puts("-------------------------");
-			puts("");
-			
-			printf("%s", "What would you like to do? ");
-			
-	
-			
 			
 }
 		
@@ -110,6 +107,10 @@ int getUserChoice() {
 
 int getShift(){
 	
+	puts("");
+		
+	printf("%s", "Enter a new shift value: ");
+		
 	
 	
 }
